@@ -28,13 +28,21 @@ class Users(Resource):
 			response.append({"response":users})
 			return jsonify(response)
 			
-	def delete(self):
-		userController = UsersCom()
-		users_deleted = userController.delete_user(request.get_json())
-		response = []
-		response.append({"message":"users_deleted"})
-		response.append({"response":users_deleted})
-		return jsonify(response)
-	
+	def delete(self, id_user = None):
+		if id_user is None:
+			userController = UsersCom()
+			users_deleted = userController.delete_user(request.get_json())
+			response = []
+			response.append({"message":"users_deleted"})
+			response.append({"response":users_deleted})
+			return jsonify(response)
+		else:
+			userController = UsersCom()
+			user_deleted = userController.delete_user({"id_user":id_user})
+			response = []
+			response.append({"message":"user_deleted"})
+			response.append({"response":user_deleted})
+			return jsonify(response)
+			
 	def put(self):
 		return "Sorry, this method not implemented",200
